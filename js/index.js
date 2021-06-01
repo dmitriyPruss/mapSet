@@ -1,69 +1,70 @@
 'use strict'
 
-/*
-Map
 
-Пусть даны 2 массива. Создайте коллекцию Map из этих массивов.
-Получите список ключей и значений отдельно.
-Получите текущее количество элементов.
-Добавьте и удалите элемент
-Произведите поиск по ключу
-*/
+// Map
+console.groupCollapsed('Map');
 
-const arr1 = [11, 'eleven'];
-const arr2 = ['deep', "sky"];
+    // Пусть даны 2 массива. Создайте коллекцию Map из этих массивов.
+    const arr1 = [11, 'eleven'];
+    const arr2 = ['deep', "sky"];
+    const map = new Map( [arr1, arr2] );
 
-const map = new Map( [arr1, arr2] );
+    // Получите список ключей и значений отдельно.
+    console.log('map.keys() :>> ', map.keys() );
+    console.log('map.values() :>> ', map.values() );
 
-console.log( 'map.keys() :>> ', map.keys() );
-console.log( 'map.values() :>> ', map.values() );
-console.log('map.size :>> ', map.size);
+    // Получите текущее количество элементов.
+    console.log('map.size :>> ', map.size);
 
-map.set('sun', {rise: true});
-map.delete(11);
-console.log('map :>> ', map);
+    // Добавьте и удалите элемент
+    map.set('sun', {rise: true});
+    map.delete(11);
 
-console.log('map.has(\'deep\') :>> ', map.has('deep'));
+    // Произведите поиск по ключу
+    console.log('map.has(\'deep\') :>> ', map.has('deep') );
+console.groupEnd();
 
-/*
-Set
 
-Создайте коллекцию Set с начальными значениями 1,2,3. 
-С помощью метода has проверьте наличие элемента со значением 3, а затем элемента со значением 4.
-Добавите еще несколько элементов.
-С помощью цикла for-of переберите ее значения и выведите в консоль.
-Найдите сумму этих значений.
-Удалите элемент 2.
-Очистите всю коллекцию.
-*/
-const set = new Set([1, 2, 3]);
+//Set
+console.groupCollapsed('Set');
+    
+    // Создайте коллекцию Set с начальными значениями 1,2,3.
+    const set = new Set([1, 2, 3]);
 
-console.log('set.has(3) :>> ', set.has(3));
-console.log('set.has(4) :>> ', set.has(4));
+    // С помощью метода has проверьте наличие элемента со значением 3, 
+    // а затем элемента со значением 4.
+    console.log('set.has(3) :>> ', set.has(3));
+    console.log('set.has(4) :>> ', set.has(4));
 
-set.add(17);
-set.add(88);
+    // Добавите еще несколько элементов.
+    set.add(17);
+    set.add(88);
 
-let res = 0;
-for (let val of set) {
-    console.log('val :>> ', val);
-    res += val;
-};
-console.log('res :>> ', res);
+    // С помощью цикла for-of переберите ее значения и выведите в консоль.
+    // Найдите сумму этих значений.
+    let res = 0;
+    for (const val of set) {
+        console.log( 'set val :>> ', val );
+        res += val;
+    };
+    console.log('res :>> ', res);
 
-set.delete(2);
-console.log('set :>> ', set);
-set.clear();
+    // Удалите элемент 2.
+    set.delete(2);
+
+    // Очистите всю коллекцию
+    set.clear();
+console.groupEnd();
 
 
 // * Сделать MyArray итерируемым.
-console.group('* Iterator');
+console.groupCollapsed('* Iterator');
     function MyArray() {
         if (!new.target) {
             return new MyArray();
         }
         this.length = 0;
-    }
+    };
     
     const myArrayProto = new MyArray();
     
@@ -139,21 +140,21 @@ console.group('* Iterator');
     };
 
     myArrayProto[Symbol.iterator] = function() {
-        let from = 0;
-        const to = this.length - 1;
+        let i = 0;
+        const limit = this.length - 1;
 
         return {
             next() {
-              if (from > to) {
+                if (i > limit) {
+                    return {
+                        value: undefined,
+                        done: true,
+                    };
+                } 
                 return {
-                  value: undefined,
-                  done: true,
+                    value: i++,
+                    done: false,
                 };
-              }
-              return {
-                value: from++,
-                done: false,
-              };
             }
         }  
     };
@@ -178,16 +179,9 @@ console.group('* Iterator');
 
         myArr1.push(i);
     };
-
-    console.dir(myArr1);
     
-    // for (const key of myArr1) {
-    //     console.log(`myArr1[${key}] :>> `, myArr1[key]);
-    // };
-
     for (const key of myArr1) {
-        console.log(`myArr2[${key}] :>> `, myArr1[key]);
+        console.log(`myArr1[${key}] :>> `, myArr1[key]);
     };
-    
 console.groupEnd();
 
